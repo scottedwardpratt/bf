@@ -7,12 +7,12 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 	if (argc != 2) {
-		CLog::Info("Usage: msuboltz run_name\n");
+		CLog::Info("Usage: msuboltz run_number\n");
 		exit(-1);
   }
 	CparameterMap parmap;
-	string run_name=argv[1];
-	int NN=0,Npi=0,NK=0;
+	CBalanceArrays *barray;
+	string run_name="pars"+string(argv[1]);
 	char message[200];
 	int nmerge,nscatter,nannihilate,ncancel_annihilate,nevents,nparts,ievent,ndecay;
 	//char logfilename[100];
@@ -28,32 +28,49 @@ int main(int argc, char *argv[]){
 	CpartList *pl=new CpartList(&parmap,ms.reslist);
 
 	ms.partlist=pl;
+	//ms.randy->reset(time(NULL));
+	//ms.randy->reset(atoi(argv[1]));
 	ms.randy->reset(time(NULL));
 	ms.ReadHyper_OSU_2D();
 
 	CMSU_Boltzmann *msuboltz=new CMSU_Boltzmann(run_name,&parmap,ms.reslist);
 	msuboltz->InitCascade();
+	msuboltz->randy->reset(time(NULL));
+	barray=msuboltz->balancearrays;
 	
 	nparts=0;
-	nevents=parmap.getI("SAMPLER_NEVENTS",10);
 	nevents=parmap.getI("MSU_BOLTZMANN_NEVENTSMAX",10);
+	printf("------- nevents=%d\n",nevents);
 
 	CQualifiers qualifiers;
 	qualifiers.Read("qualifiers.txt");
 	nmerge=nscatter=nannihilate=ncancel_annihilate=ndecay=0;
 	msuboltz->ReadMuTInfo();
 	msuboltz->nevents=0;
-	Npi=NK=NN=0;
+	msuboltz->SetQualifier(qualifiers.qualifier[0]->qualname);
 	for(ievent=0;ievent<nevents;ievent++){
 		msuboltz->Reset();
 		nparts+=ms.MakeEvent();
 		msuboltz->InputPartList(pl);
-		Npi+=pl->CountResonances(211)+pl->CountResonances(-221)+pl->CountResonances(111);
-		NK+=pl->CountResonances(321)+pl->CountResonances(-321)+pl->CountResonances(311)+pl->CountResonances(-311);
-		NN+=pl->CountResonances(2212)+pl->CountResonances(-2212)+pl->CountResonances(2112)+pl->CountResonances(-2112);
 		pl->Clear();
+		printf("without charges: partmap size=%d\n",int(msuboltz->PartMap.size()));
+		printf("action map size=%lu\n",msuboltz->ActionMap.size());
+		if(barray->FROM_UDS){
+			msuboltz->ReadCharges(ievent);
+			msuboltz->GenHadronsFromCharges(); // Generates inter-correlated parts, with bids = (0,1),(2,3)....
+			msuboltz->DeleteCharges();
+		}
+		printf("--------------- with charges: partmap size=%d\n",int(msuboltz->PartMap.size()));
+		printf("action map size=%lu\n",msuboltz->ActionMap.size());
+		msuboltz->CheckPartMap();
+		printf("------- PartMap Checked\n");
 		msuboltz->PerformAllActions();
+		printf("---------------- Actions Performed\n");
 		msuboltz->IncrementHadronCount();
+
+		barray->ProcessPartMap();
+		if(barray->FROM_UDS)
+			barray->ProcessBFPartMap();
 		
 		nmerge+=msuboltz->nmerge;
 		nscatter+=msuboltz->nscatter;
@@ -63,8 +80,6 @@ int main(int argc, char *argv[]){
 		sprintf(message,"ievent=%lld nparts/event=%g\n",ms.NEVENTS,double(nparts)/double(ms.NEVENTS));
 		CLog::Info(message);
 	}
-	sprintf(message,"Npi=%d, NK=%d, NN=%d, NN/Npi=%g\n",Npi,NK,NN,double(NN)/double(Npi));
-	CLog::Info(message);
 	sprintf(message,"ndecay/event=%g, nmerge/event=%g, nscatter/event=%g\n",
 		double(ndecay)/double(nevents),double(nmerge)/double(nevents),double(nscatter)/double(nevents));
 	CLog::Info(message);
@@ -73,6 +88,9 @@ int main(int argc, char *argv[]){
 	CLog::Info(message);
 	msuboltz->WriteMuTInfo();
 	msuboltz->WriteHadronCount();
+	barray->ConstructBFs();
+	barray->WriteBFs();
+	barray->WriteDenoms();
 
 	CLog::Info("YIPPEE!!!!! We made it all the way through!\n");
 	return 0;

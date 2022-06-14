@@ -44,10 +44,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.23.1_1/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.23.2/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.23.1_1/bin/cmake -E rm -f
+RM = /usr/local/Cellar/cmake/3.23.2/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -97,6 +97,7 @@ bf_fromhydro: /usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib
 bf_fromhydro: /Users/scottpratt/git/commonutils/software/lib/libmsu_commonutils.a
 bf_fromhydro: /Users/scottpratt/git/msu_boltzmann/software/lib/libmsu_boltzmann.a
 bf_fromhydro: /Users/scottpratt/git/msu_sampler/software/lib/libmsu_sampler.a
+bf_fromhydro: /Users/scottpratt/git/hydrobalance/software/lib/libmsu_hydrobalance.a
 bf_fromhydro: CMakeFiles/bf_fromhydro.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/scottpratt/git/bf/bin/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bf_fromhydro"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bf_fromhydro.dir/link.txt --verbose=$(VERBOSE)
