@@ -22,9 +22,9 @@ link_directories(${GITHOME_MSU}/msu_sampler/software/lib ${GITHOME_MSU}/msu_bolt
 find_library(${GITHOME_MSU}/commonutils/software/lib msu_commonutils)
 find_library(${GITHOME_MSU}/msu_sampler/software/lib msu_sampler)
 find_library(${GITHOME_MSU}/msu_boltzmann/software/lib msu_boltzmann)
-find_library(${GITHOME_MSU}/msu_hydrobalance/software/lib msu_hydrobalance)
+#find_library(${GITHOME_MSU}/msu_hydrobalance/software/lib msu_hydrobalance)
 
 set(SOURCE_FILES ./bf_fromhydro.cc)
 add_executable(bf_fromhydro ${SOURCE_FILES})
 add_dependencies(bf_fromhydro extern_msu_sampler extern_msu_commonutils extern_msu_boltzmann)
-target_link_libraries(bf_fromhydro msu_boltzmann msu_commonutils msu_sampler msu_hydrobalance ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${EIGEN3_LIBRARY} ${GITHOME_MSU}/commonutils/software/lib/libmsu_commonutils.a ${GITHOME_MSU}/msu_boltzmann/software/lib/libmsu_boltzmann.a ${GITHOME_MSU}/msu_sampler/software/lib/libmsu_sampler.a ${GITHOME_MSU}/hydrobalance/software/lib/libmsu_hydrobalance.a)
+target_link_libraries(bf_fromhydro msu_boltzmann msu_commonutils msu_sampler ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${EIGEN3_LIBRARY} ${GITHOME_MSU}/commonutils/software/lib/libmsu_commonutils.a ${GITHOME_MSU}/msu_boltzmann/software/lib/libmsu_boltzmann.a ${GITHOME_MSU}/msu_sampler/software/lib/libmsu_sampler.a)
