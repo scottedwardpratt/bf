@@ -13,6 +13,7 @@ int main(int argc, char *argv[]){
 	CparameterMap parmap;
 	CBalanceArrays *barray;
 	string run_name="pars"+string(argv[1]);
+	int run_number=atoi(argv[1]);
 	char message[200];
 	int nmerge,nscatter,nannihilate,ncancel_annihilate,nevents,nparts,ievent,ndecay;
 	//char logfilename[100];
@@ -30,12 +31,12 @@ int main(int argc, char *argv[]){
 	ms.partlist=pl;
 	//ms.randy->reset(time(NULL));
 	//ms.randy->reset(atoi(argv[1]));
-	ms.randy->reset(time(NULL));
+	ms.randy->reset(run_number);
 	ms.ReadHyper_OSU_2D();
 
 	CMSU_Boltzmann *msuboltz=new CMSU_Boltzmann(run_name,&parmap,ms.reslist);
 	msuboltz->InitCascade();
-	msuboltz->randy->reset(time(NULL));
+	msuboltz->randy->reset(run_number);
 	barray=msuboltz->balancearrays;
 	
 	nparts=0;
@@ -53,17 +54,17 @@ int main(int argc, char *argv[]){
 		nparts+=ms.MakeEvent();
 		msuboltz->InputPartList(pl);
 		pl->Clear();
+		printf("----------------- WTF\n");
+		msuboltz->CheckActions();
 		printf("without charges: partmap size=%d\n",int(msuboltz->PartMap.size()));
 		printf("action map size=%lu\n",msuboltz->ActionMap.size());
-		if(barray->FROM_UDS){
-			msuboltz->ReadCharges(ievent);
-			msuboltz->GenHadronsFromCharges(); // Generates inter-correlated parts, with bids = (0,1),(2,3)....
-			msuboltz->DeleteCharges();
-		}
+		//if(barray->FROM_UDS){
+			//msuboltz->ReadCharges(ievent);
+			//msuboltz->GenHadronsFromCharges(); // Generates inter-correlated parts, with bids = (0,1),(2,3)....
+			//msuboltz->DeleteCharges();
+		//}
 		printf("--------------- with charges: partmap size=%d\n",int(msuboltz->PartMap.size()));
 		printf("action map size=%lu\n",msuboltz->ActionMap.size());
-		msuboltz->CheckPartMap();
-		printf("------- PartMap Checked\n");
 		msuboltz->PerformAllActions();
 		printf("---------------- Actions Performed\n");
 		msuboltz->IncrementHadronCount();
