@@ -12,8 +12,8 @@ int main(int argc, char *argv[]){
   }
 	CparameterMap parmap;
 	CBalanceArrays *barray;
-	string run_name="pars"+string(argv[1]);
 	int run_number=atoi(argv[1]);
+	string run_name="pars"+to_string(run_number);
 	char message[200];
 	int nmerge,nscatter,nannihilate,ncancel_annihilate,nevents,nparts,ievent,ndecay;
 	//char logfilename[100];
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 
 	string filename="model_output/fixed_parameters.txt";
 	parmap.ReadParsFromFile(filename);
-	filename="model_output/"+run_name+"/parameters.txt";
+	filename="model_output/pars"+to_string(run_number)+"/parameters.txt";
 	parmap.ReadParsFromFile(filename);
 	CmasterSampler ms(&parmap);
 	CpartList *pl=new CpartList(&parmap,ms.reslist);
