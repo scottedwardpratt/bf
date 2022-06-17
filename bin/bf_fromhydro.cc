@@ -51,10 +51,14 @@ int main(int argc, char *argv[]){
 			msuboltz->randy->reset(ievent);
 			nparts+=ms.MakeEvent();
 			msuboltz->InputPartList(pl);
+			printf("check a\n");
 			Npi+=pl->CountResonances(211)+pl->CountResonances(-221)+pl->CountResonances(111);
 			NK+=pl->CountResonances(321)+pl->CountResonances(-321)+pl->CountResonances(311)+pl->CountResonances(-311);
 			NN+=pl->CountResonances(2212)+pl->CountResonances(-2212)+pl->CountResonances(2112)+pl->CountResonances(-2112);
 			pl->Clear();
+
+			msuboltz->PerformAllActions();
+			msuboltz->IncrementHadronCount();
 
 			if(barray->FROM_UDS){
 				msuboltz->ReadCharges(ievent);
