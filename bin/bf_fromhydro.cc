@@ -40,10 +40,10 @@ int main(int argc, char *argv[]){
 	nevents=ieventf+1-ievent0;
 	CQualifiers qualifiers;
 	qualifiers.Read("qualifiers.txt");
-	msuboltz->ReadMuTInfo();
 	for(iqual=0;iqual<qualifiers.nqualifiers;iqual++){
 		msuboltz->SetQualifier(qualifiers.qualifier[iqual]->qualname);
 		qualifiers.SetPars(msuboltz->parmap,iqual);
+		msuboltz->ReadMuTInfo();
 		Npi=NK=NN=nparts=0;
 		nmerge=nscatter=nannihilate=ncancel_annihilate=ndecay=0;
 		for(ievent=ievent0;ievent<=ieventf;ievent++){
