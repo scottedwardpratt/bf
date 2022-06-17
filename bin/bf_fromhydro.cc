@@ -56,18 +56,17 @@ int main(int argc, char *argv[]){
 			NK+=pl->CountResonances(321)+pl->CountResonances(-321)+pl->CountResonances(311)+pl->CountResonances(-311);
 			NN+=pl->CountResonances(2212)+pl->CountResonances(-2212)+pl->CountResonances(2112)+pl->CountResonances(-2112);
 			pl->Clear();
-
-			msuboltz->PerformAllActions();
-			msuboltz->IncrementHadronCount();
-
+			printf("check b\n");
 			if(barray->FROM_UDS){
 				msuboltz->ReadCharges(ievent);
 				msuboltz->GenHadronsFromCharges();
 				// Generates inter-correlated parts, with bids = (0,1),(2,3)....
 				msuboltz->DeleteCharges();
 			}
+			printf("check c\n");
 
 			msuboltz->PerformAllActions();
+			printf("check d\n");
 			msuboltz->IncrementHadronCount();
 
 			nmerge+=msuboltz->nmerge;
