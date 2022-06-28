@@ -1,6 +1,6 @@
 #! /bin/bash
-nproc=4
-nruns=30
+nproc=24
+nruns=60
 for ((i=0;i<${nproc};i+=1))
 do
 	firsti=`expr ${i} \* ${nruns}`;

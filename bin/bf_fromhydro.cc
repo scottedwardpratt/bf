@@ -33,7 +33,6 @@ int main(int argc, char *argv[]){
 	ms.partlist=pl;
 	ms.randy->reset(run_number);
 	ms.ReadHyper_OSU_2D();
-
 	CMSU_Boltzmann *msuboltz=new CMSU_Boltzmann(run_name,&parmap,ms.reslist);
 	msuboltz->randy->reset(run_number);
 	msuboltz->InitCascade();
