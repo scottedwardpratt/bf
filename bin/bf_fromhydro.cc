@@ -34,7 +34,6 @@ int main(int argc, char *argv[]){
 	ms.randy->reset(run_number);
 	ms.ReadHyper_OSU_2D();
 	CMSU_Boltzmann *msuboltz=new CMSU_Boltzmann(run_name,&parmap,ms.reslist);
-	msuboltz->randy->reset(run_number);
 	msuboltz->InitCascade();
 	CBalanceArrays *barray=msuboltz->balancearrays;
 	nevents=ieventf+1-ievent0;
