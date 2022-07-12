@@ -95,7 +95,8 @@ int main(int argc, char *argv[]){
 			barray->WriteDenoms();
 			barray->WriteGammaP();
 		}
-	//msuboltz->WriteMuTInfo();
+		if(msuboltz->MUTCALC)
+			msuboltz->WriteMuTInfo();
 		msuboltz->WriteHadronCount();
 	}
 
