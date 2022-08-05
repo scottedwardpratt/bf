@@ -1,7 +1,7 @@
 #!/bin/bash
 \rm -f mutcalc_results/*.txt
-nevents=1000
-for((i=0;i<4;i++))
+nevents=10000
+for((i=0;i<3;i++))
 do 
 	i0=`expr ${i} \* ${nevents}`
 	if=`expr ${i} \* ${nevents} + ${nevents}`

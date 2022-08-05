@@ -59,8 +59,8 @@ HYPER_INFO_FILE ../hyperdata/OSU/alice_cent0_5/hyper.txt
 #HYPER_INFO_FILE ../hyperdata/hypertest/hyper.txt
 HYPERDATA_FILENAME hyper.txt
 FREEZEOUT_TEMP   0.155
-NSAMPLE_HYDRO2UDS 4
-NSAMPLE_UDS2BAL 4
+NSAMPLE_HYDRO2UDS 2
+NSAMPLE_UDS2BAL 2
 LATTICEDATA_DIRNAME ../latticedata
 EOS_PSTDATA_FILENAME ../eos/EOS_tables/EOS_PST_H.txt
 ###################
