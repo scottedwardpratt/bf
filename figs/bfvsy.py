@@ -58,12 +58,12 @@ ax = fig.add_axes([xx0,yy0,width,height])
 plt.plot([0,5],[0,0],linestyle='dashed',color='grey')
 
 ymin=0
-ymax=0.5
+ymax=0.20
 plt.plot(x1,y1,linestyle='-',linewidth=3,color='r',markersize=8, marker='o',markerfacecolor='r',label='no annihilations')
 plt.plot(x2,y2,linestyle='-',linewidth=3,color='g',markersize=8, marker='^',markerfacecolor='g',label='with annihilations')
 plt.plot(x3,y3,linestyle='-',linewidth=3,color='k',markersize=8, marker='s',markerfacecolor='k',label='plus regeneration')
 
-legend(loc=(0.01,0.08),fontsize=18)
+legend(loc=(0.01,0.02),fontsize=18)
 
 ax.set_xticks(np.arange(0,4,0.5), minor=False)
 ax.set_xticks(np.arange(0,4,0.1), minor=True)

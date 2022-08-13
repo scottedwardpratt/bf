@@ -90,7 +90,7 @@ ax = fig.add_axes([xx0,yy0,width,height])
 plt.plot([0,5],[0,0],linestyle='dashed',color='grey')
 
 ymin=-0.1
-ymax=0.65
+ymax=0.4
 plt.plot(xx1,bbff1,linestyle='-',linewidth=3,color='r',markersize=8, marker='o',markerfacecolor='r',label='no annihilations')
 #plt.plot(x1,bfsum_noannihilation,linestyle='-',linewidth=3,color='r',markersize=6, marker='o',markerfacecolor='r',label='No annihilations')
 #plt.plot(x2,bfsum_noregeneration,linestyle='-',linewidth=3,color='g',markersize=6, marker='o',markerfacecolor='g',label='with annihilations')
