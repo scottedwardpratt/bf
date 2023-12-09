@@ -9,12 +9,11 @@ add_custom_target(extern_msu_hydrobalance COMMAND make WORKING_DIRECTORY ${GITHO
 add_custom_target(extern_msu_eos COMMAND make WORKING_DIRECTORY ${GITHOME_MSU}/msu_eos/software)
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -std=c++11 -mfpmath=sse")
+set(CMAKE_CXX_FLAGS "-W -Wall -march=native -std=c++17 -O2")
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-find_package(GSL)
+find_package(GSL REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 include_directories(SYSTEM ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR} ${GITHOME_MSU}/commonutils/software/include  ${GITHOME_MSU}/msu_sampler/software/include  ${GITHOME_MSU}/msu_boltzmann/software/include ${GITHOME_MSU}/hydrobalance/software/include ${GITHOME_MSU}/msu_eos/software/include)
